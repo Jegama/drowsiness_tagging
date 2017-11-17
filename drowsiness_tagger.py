@@ -82,10 +82,11 @@ while(faceVid.isOpened()):
 
     if datetime.datetime.now() - seconds > oneSec:
         seconds = datetime.datetime.now()
-        fps = '(' + str(currentFrame - lastFrame) + ' fps)'
+        fps = str(currentFrame - lastFrame) + ' fps'
         lastFrame = currentFrame
 
-    print('    Frame', currentFrame, 'out of', totalFrames, fps, end = '\r')
+    progressPercentage = round((currentFrame/totalFrames) * 100, 2)
+    print('    Progress:', progressPercentage, '%, tagging at', fps, end = '\r')
 
     frame = imutils.resize(frame, width=450)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
