@@ -19,7 +19,6 @@ from imutils.video import VideoStream
 from imutils import face_utils
 from threading import Thread
 import numpy as np
-import playsound
 import datetime
 import argparse
 import imutils
@@ -63,7 +62,7 @@ faceVidFPS = faceVid.get(cv2.CAP_PROP_FPS)
 
 videoLength = totalFrames / faceVidFPS
 
-print('Tagging', args["video"], '\n    It has a lenght of', round(videoLength/ 60, 2), 'minutes')
+print('Tagging', args["video"], '\n    It has a lenght of', round(videoLength/ 60, 2), 'minutes at', faceVidFPS, 'fps')
 
 timePerFrame = 1/faceVidFPS
 timestamp = 0
@@ -82,7 +81,7 @@ while(faceVid.isOpened()):
 
     if datetime.datetime.now() - seconds > oneSec:
         seconds = datetime.datetime.now()
-        fps = str(currentFrame - lastFrame) + ' fps'
+        fps = str(currentFrame - lastFrame) + ' fps   '
         lastFrame = currentFrame
 
     progressPercentage = round((currentFrame/totalFrames) * 100, 2)
@@ -114,5 +113,6 @@ while(faceVid.isOpened()):
             COUNTER = 0
             output.write('{},{}\n'.format(timestamp, '0'))
 
+print('\nDone\n')
 output.close()
 faceVid.release()
